@@ -21,12 +21,14 @@ RGB_MATRIX_EFFECT(keytype_light_effect)
                     uint16_t sat = rgb_matrix_get_sat();
                     uint16_t val = rgb_matrix_get_val();
 
-                    if (key == KC_TRNS) {
-                        key = keymap_key_to_keycode(0, (keypos_t){col, row});
+                    /* If transparent, check layers below until a non-transparent key is found */
+                    int i = 0;
+                    while (key == KC_TRNS) {
+                        key = keymap_key_to_keycode(layer - i, (keypos_t){col, row});
+                        i ++;
                     }
 
                     /* Reference codes in quantum/keycodes.h */
-
                     if (key >= KC_A && key <= KC_Z) {                   // alphas
                         sat = 0;    // White
                     } else if ((key >= KC_1 && key <= KC_0) ||          // numbers
@@ -77,15 +79,13 @@ RGB_MATRIX_EFFECT(keytype_light_effect)
                     } else if (IS_RGB_KEYCODE(key) ||                   // rgb changers
                                IS_BACKLIGHT_KEYCODE(key) ||
                                IS_QK_LIGHTING(key)) {
-                        hue = 170;  // Blue
+                        hue = 191;  // Purple
                     } else if (IS_MOUSE_KEYCODE(key)) {                 // mouse keys
                         hue = 85;   // Green
                     } else if (key == KC_NO) {                          // off
-                        hue = 0;
-                        sat = 0;
                         val = 0;
                     } else {                                            // undefined
-                        sat = 0;
+                        hue = 170;  // Blue
                     }
 
                     HSV hsv = {hue, sat, val};
