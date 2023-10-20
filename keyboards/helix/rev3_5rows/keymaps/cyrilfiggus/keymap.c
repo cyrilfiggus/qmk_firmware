@@ -28,8 +28,8 @@ enum layer_names {
 #define ADJUST  MO(_ADJUST)
 #define SPC_FN1 LT(1, KC_SPC)
 #define SPC_FN2 LT(2, KC_SPC)
-#define TT_LOW  TT(LOWER)       // Hold for MO(LOWER), tap TAP_TOGGLE times to toggle layer ON, and again for OFF
-#define TT_RAI  TT(RAISE)
+#define TT_LOW  TT(_LOWER)      // Hold for MO(LOWER), tap TAP_TOGGLE times to toggle layer ON, and again for OFF
+#define TT_RAI  TT(_RAISE)
 #define OSM_SFT OSM(MOD_LSFT)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -51,8 +51,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_RAISE] = LAYOUT(
         KC_NUM,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, KC_BTN3, XXXXXXX, XXXXXXX, _______,
-        AS_TOGG, RGB_MOD, RGB_SPI, RGB_HUI, RGB_SAI, RGB_VAI,                   XXXXXXX, KC_BTN1, KC_MS_U, KC_BTN2 ,XXXXXXX, _______,
-        XXXXXXX, RGB_RMOD,RGB_SPD, RGB_HUD, RGB_SAD, RGB_VAD,                   XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX, _______,
+        AS_TOGG, RGB_MOD, RGB_SPI, RGB_HUI, RGB_SAI, RGB_VAI,                   XXXXXXX, KC_BTN1, KC_MS_U, KC_BTN2, XXXXXXX, _______,
+        OS_TOGG, RGB_RMOD,RGB_SPD, RGB_HUD, RGB_SAD, RGB_VAD,                   XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX, _______,
         KC_CAPS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_TOG, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MPRV, KC_VOLU, KC_MNXT,
         _______, _______, AG_NORM, AG_SWAP, _______, _______, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, KC_MUTE, KC_VOLD, KC_MPLY
     ),
@@ -67,14 +67,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef ENCODER_MAP_ENABLE
-
     const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
         [0] = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
         [1] = {ENCODER_CCW_CW(RGB_VAD, RGB_VAI)},
         [2] = {ENCODER_CCW_CW(RGB_SAD, RGB_SAI)},
         [3] = {ENCODER_CCW_CW(RGB_HUD, RGB_HUI)}
     };
-
 #endif  // ENCODER_MAP_ENABLE
 
 #ifdef RGBLIGHT_ENABLE
@@ -137,7 +135,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     const rgblight_segment_t PROGMEM raise_left[] = RGBLIGHT_LAYER_SEGMENTS(
         { 5,1,TOGS},{ 4,1,OFF_},{ 3,1,OFF_},{ 2,1,OFF_},{ 1,1,OFF_},{ 0,1,OFF_},
         { 6,1,TOGS},{ 7,1,RGBA},{ 8,1,RGBA},{ 9,1,RGBA},{10,1,RGBA},{11,1,RGBA},
-        {17,1,OFF_},{16,1,RGBA},{15,1,RGBA},{14,1,RGBA},{13,1,RGBA},{12,1,RGBA},
+        {17,1,TOGS},{16,1,RGBA},{15,1,RGBA},{14,1,RGBA},{13,1,RGBA},{12,1,RGBA},
         {18,1,TOGS},{19,1,OFF_},{20,1,OFF_},{21,1,OFF_},{22,1,OFF_},{23,1,OFF_},{24,1,OFF_},
         {31,1,MODS},{30,1,MO_A},{29,1,TOGS},{28,1,TOGS},{27,1,MO_R},{26,1,MO_L},{25,1,OFF_}
     );
@@ -210,49 +208,47 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef RGB_MATRIX_ENABLE
     #include "split_util.h"
 
-    #ifdef RGB_MATRIX_ENABLE
-        led_config_t g_led_config = {
-            {
-                // Key Matrix to LED Index
-                // g_led_config.matrix_co
-                { 5,  4,  3,  2,  1,  0, NO_LED},
-                { 6,  7,  8,  9, 10, 11, NO_LED},
-                {17, 16, 15, 14, 13, 12, NO_LED},
-                {18, 19, 20, 21, 22, 23,     24},
-                {31, 30, 29, 28, 27, 26,     25},
-                {37, 36, 35, 34, 33, 32, NO_LED},
-                {38, 39, 40, 41, 42, 43, NO_LED},
-                {49, 48, 47, 46, 45, 44, NO_LED},
-                {50, 51, 52, 53, 54, 55,     56},
-                {63, 62, 61, 60, 59, 58,     57},
-            }, {
-                // LED Index to Physical Position
-                // g_led_config.point
-                { 86,  0}, { 68,  0}, { 51,  0}, { 34,  0}, { 17,  0}, {  0,  0},
-                {  0, 16}, { 17, 16}, { 34, 16}, { 51, 16}, { 68, 16}, { 86, 16},
-                { 86, 32}, { 68, 32}, { 51, 32}, { 34, 32}, { 17, 32}, {  0, 32},
-                {  0, 48}, { 17, 48}, { 34, 48}, { 51, 48}, { 68, 48}, { 86, 48}, {103, 48},
-                {103, 64}, { 86, 64}, { 68, 64}, { 51, 64}, { 34, 64}, { 17, 64}, {  0, 64},
-                {137,  0}, {155,  0}, {172,  0}, {189,  0}, {206,  0}, {224,  0},
-                {224, 16}, {206, 16}, {189, 16}, {172, 16}, {155, 16}, {137, 16},
-                {137, 32}, {155, 32}, {172, 32}, {189, 32}, {206, 32}, {224, 32},
-                {224, 48}, {206, 48}, {189, 48}, {172, 48}, {155, 48}, {137, 48}, {120, 48},
-                {120, 64}, {137, 64}, {155, 64}, {172, 64}, {189, 64}, {206, 64}, {224, 64}
-            }, {
-                // LED Index to Flag
-                // g_led_config.flags
-                4, 4, 4, 4, 4, 1,
-                1, 4, 4, 4, 4, 4,
-                4, 4, 4, 4, 4, 1,
-                1, 4, 4, 4, 4, 4, 4,
-                1, 1, 1, 1, 1, 1, 1,
-                4, 4, 4, 4, 4, 1,
-                1, 4, 4, 4, 4, 4,
-                4, 4, 4, 4, 4, 1,
-                1, 4, 4, 4, 4, 4, 4,
-                1, 1, 1, 1, 1, 1, 1,
-            }
-        };
-    #endif  // RGB_MATRIX_ENABLE
+    led_config_t g_led_config = {
+        {
+            // Key Matrix to LED Index
+            // g_led_config.matrix_co
+            { 5,  4,  3,  2,  1,  0, NO_LED},
+            { 6,  7,  8,  9, 10, 11, NO_LED},
+            {17, 16, 15, 14, 13, 12, NO_LED},
+            {18, 19, 20, 21, 22, 23,     24},
+            {31, 30, 29, 28, 27, 26,     25},
+            {37, 36, 35, 34, 33, 32, NO_LED},
+            {38, 39, 40, 41, 42, 43, NO_LED},
+            {49, 48, 47, 46, 45, 44, NO_LED},
+            {50, 51, 52, 53, 54, 55,     56},
+            {63, 62, 61, 60, 59, 58,     57},
+        }, {
+            // LED Index to Physical Position
+            // g_led_config.point
+            { 86,  0}, { 68,  0}, { 51,  0}, { 34,  0}, { 17,  0}, {  0,  0},
+            {  0, 16}, { 17, 16}, { 34, 16}, { 51, 16}, { 68, 16}, { 86, 16},
+            { 86, 32}, { 68, 32}, { 51, 32}, { 34, 32}, { 17, 32}, {  0, 32},
+            {  0, 48}, { 17, 48}, { 34, 48}, { 51, 48}, { 68, 48}, { 86, 48}, {103, 48},
+            {103, 64}, { 86, 64}, { 68, 64}, { 51, 64}, { 34, 64}, { 17, 64}, {  0, 64},
+            {137,  0}, {155,  0}, {172,  0}, {189,  0}, {206,  0}, {224,  0},
+            {224, 16}, {206, 16}, {189, 16}, {172, 16}, {155, 16}, {137, 16},
+            {137, 32}, {155, 32}, {172, 32}, {189, 32}, {206, 32}, {224, 32},
+            {224, 48}, {206, 48}, {189, 48}, {172, 48}, {155, 48}, {137, 48}, {120, 48},
+            {120, 64}, {137, 64}, {155, 64}, {172, 64}, {189, 64}, {206, 64}, {224, 64}
+        }, {
+            // LED Index to Flag
+            // g_led_config.flags
+            4, 4, 4, 4, 4, 1,
+            1, 4, 4, 4, 4, 4,
+            4, 4, 4, 4, 4, 1,
+            1, 4, 4, 4, 4, 4, 4,
+            1, 1, 1, 1, 1, 1, 1,
+            4, 4, 4, 4, 4, 1,
+            1, 4, 4, 4, 4, 4,
+            4, 4, 4, 4, 4, 1,
+            1, 4, 4, 4, 4, 4, 4,
+            1, 1, 1, 1, 1, 1, 1,
+        }
+    };
 
-#endif
+#endif  // RGB_MATRIX_ENABLE

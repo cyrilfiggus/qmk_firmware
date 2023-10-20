@@ -9,7 +9,7 @@ BOOTLOADER = caterina
 SPLIT_KEYBOARD = yes
 
 # If using Sparkfun RP2040 Pro Micro
-# CONVERT_TO = promicro_rp2040
+CONVERT_TO = promicro_rp2040
 
 # Useful Features
 AUTO_SHIFT_ENABLE = yes

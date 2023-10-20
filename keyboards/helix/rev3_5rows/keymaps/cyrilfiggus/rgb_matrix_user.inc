@@ -1,3 +1,6 @@
+// Copyright 2023 cyrilfiggus (@cyrilfiggus)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 RGB_MATRIX_EFFECT(keytype_light_effect)
 
 #ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
