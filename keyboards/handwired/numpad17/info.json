@@ -1,0 +1,92 @@
+{
+    "keyboard_name": "numpad17",
+    "manufacturer": "qmkbuilder",
+    "url": "",
+    "maintainer": "qmk",
+    "usb": {
+        "vid": "0x7470",
+        "pid": "0x0001",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+    "build": {
+        "lto": true
+    },
+    "matrix_pins": {
+        "cols": ["D1", "D0", "D4", "C6"],
+        "rows": ["D7", "E6", "B4", "B5", "B6"]
+    },
+    "diode_direction": "COL2ROW",
+    "layouts": {
+        "LAYOUT_numpad_5x4": {
+            "layout": [
+                {"label":"Num Lock", "x":0, "y":0},
+                {"label":"/", "x":1, "y":0},
+                {"label":"*", "x":2, "y":0},
+                {"label":"-", "x":3, "y":0},
+
+                {"label":"7", "x":0, "y":1},
+                {"label":"8", "x":1, "y":1},
+                {"label":"9", "x":2, "y":1},
+                {"label":"+", "x":3, "y":1, "h":2},
+
+                {"label":"4", "x":0, "y":2},
+                {"label":"5", "x":1, "y":2},
+                {"label":"6", "x":2, "y":2},
+
+                {"label":"1", "x":0, "y":3},
+                {"label":"2", "x":1, "y":3},
+                {"label":"3", "x":2, "y":3},
+                {"label":"Enter", "x":3, "y":3, "h":1}
+
+                {"label":"0", "x":0, "y":4, "w":2},
+                {"label":",", "x":2, "y":4}
+            ]
+        }
+    },
+    "bootmagic": {
+        "matrix": [0, 3]
+    },
+    "auto_shift": {
+        "timeout": 200
+    },
+    "tapping": {
+        "term": 200
+    },
+    "features": {
+        "encoder":      false,
+        "encoder_map":  false,
+        "oled":         false,
+        "rgblight":     false,
+        "rgb_matrix":   false,
+
+        "auto_shift":   true,
+        "caps_word":    false,
+        "extrakey":     true,
+        "grave_esc":    false,
+        "magic":        true,
+        "sleep_led":    false,
+        "via":          false,
+
+        "audio":        false,
+        "backlight":    false,
+        "bluetooth":    false,
+        "bootmagic":    true,
+        "combo":        false,
+        "command":      false,
+        "console":      false,
+        "dip_switch":   false,
+        "leader_key":   false,
+        "midi":         false,
+        "mousekey":     false,
+        "nkro":         false,
+        "oneshot":      false,
+        "ps2":          false,
+        "secure":       false,
+        "space_cadet":  false,
+        "stenography":  false,
+        "tap_dance":    false,
+        "unicode":      false
+      }
+}
